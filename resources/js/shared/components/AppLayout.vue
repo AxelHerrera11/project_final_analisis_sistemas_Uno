@@ -8,7 +8,15 @@
                 <router-link class="layout__link" to="/">
                     Inicio
                 </router-link>
-                <router-link class="layout__link" to="/login">
+                <template v-if="isAuthenticated">
+                    <router-link class="layout__link" to="/dashboard">
+                        Panel
+                    </router-link>
+                    <button class="layout__link layout__link--btn" @click="handleLogout">
+                        Salir
+                    </button>
+                </template>
+                <router-link v-else class="layout__link" to="/login">
                     Acceso
                 </router-link>
             </nav>
@@ -20,6 +28,19 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+
+const router = useRouter();
+const auth = useAuthStore();
+
+const isAuthenticated = computed(() => !!auth.token);
+
+async function handleLogout() {
+    await auth.logout();
+    router.push({ name: 'home' });
+}
 </script>
 
 <style scoped>
@@ -58,6 +79,14 @@
 
 .layout__link.router-link-active {
     color: #2563eb;
+}
+
+.layout__link--btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: inherit;
 }
 
 .layout__main {

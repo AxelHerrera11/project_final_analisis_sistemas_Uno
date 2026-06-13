@@ -1,0 +1,58 @@
+export const modules = [
+  {
+    id: 'pacientes',
+    nombre: 'Pacientes',
+    descripcion: 'Gestión de pacientes',
+    ruta: '/pacientes',
+    roles: ['Admin', 'Medico', 'Enfermera', 'Recepcionista'],
+  },
+  {
+    id: 'citas',
+    nombre: 'Citas',
+    descripcion: 'Gestión de citas médicas',
+    ruta: '/citas',
+    roles: ['Admin', 'Medico', 'Recepcionista'],
+  },
+  {
+    id: 'admision',
+    nombre: 'Admisiones',
+    descripcion: 'Admisión hospitalaria',
+    ruta: '/admision',
+    roles: ['Admin', 'Enfermera', 'Recepcionista'],
+  },
+  {
+    id: 'expedientes',
+    nombre: 'Expediente Médico',
+    descripcion: 'Expediente clínico del paciente',
+    ruta: '/expedientes',
+    roles: ['Admin', 'Medico', 'Enfermera'],
+  },
+  {
+    id: 'laboratorio',
+    nombre: 'Laboratorio',
+    descripcion: 'Órdenes y resultados',
+    ruta: '/laboratorio',
+    roles: ['Admin', 'TecnicoLab', 'Medico'],
+  },
+  {
+    id: 'camas',
+    nombre: 'Camas',
+    descripcion: 'Gestión de camas',
+    ruta: '/camas',
+    roles: ['Admin', 'Enfermera', 'Recepcionista'],
+  },
+  {
+    id: 'prescripciones',
+    nombre: 'Prescripciones',
+    descripcion: 'Recetas y prescripciones',
+    ruta: '/prescripciones',
+    roles: ['Admin', 'Medico'],
+  },
+  {
+    id: 'usuarios',
+    nombre: 'Usuarios',
+    descripcion: 'Administración de usuarios',
+    ruta: '/usuarios',
+    roles: ['Admin'],
+  },
+]
