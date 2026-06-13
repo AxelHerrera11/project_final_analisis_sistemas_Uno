@@ -1,0 +1,39 @@
+sequenceDiagram
+    actor U as Usuario
+    participant LP as LoginPage.vue
+    participant AS as AuthStore
+    participant API as API /api/v1
+    participant MW as Middleware
+    participant DP as DashboardPage.vue
+    participant SC as StatCard.vue
+    participant MC as ModuleCard.vue
+
+    U->>LP: Ingresa tenant ID, email, password
+    LP->>AS: setTenantId(id)
+    LP->>AS: login(credentials)
+    AS->>API: POST /auth/login + X-Tenant-ID
+    API->>MW: TenantMiddleware
+    MW-->>API: tenant válido
+    API->>MW: JwtAuth
+    MW-->>API: token válido
+    API-->>AS: { access_token, user, roles, tenant }
+    AS->>AS: persistSession(token, user)
+    AS-->>LP: login exitoso
+    LP->>U: Redirige a /
+
+    Note over DP: onMounted()
+
+    DP->>AS: Lee user, rol, tenant
+    DP->>AS: Lee token
+    DP->>API: GET /dashboard/summary
+    API->>MW: TenantMiddleware + JwtAuth
+    MW-->>API: autorizado
+    API-->>DP: { citas_hoy, camas_disponibles, admisiones_activas }
+    DP->>DP: stats = response
+
+    DP->>DP: Filtra modules[] según user.rol
+    DP->>SC: Renderiza StatCard(v-for)
+    DP->>MC: Renderiza ModuleCard(v-for)
+
+    SC-->>U: Muestra métricas
+    MC-->>U: Muestra módulos disponibles

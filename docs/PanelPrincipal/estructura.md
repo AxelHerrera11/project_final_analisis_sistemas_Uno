@@ -29,13 +29,13 @@ routes/api.php                           ← Ruta del endpoint (api/v1/dashboard
 
 | Archivo | Cambio |
 |---|---|
-| `resources/js/router/index.js` | Se agregó ruta `/dashboard` con `meta: { requiresAuth: true }` |
-| `resources/js/shared/components/AppLayout.vue` | Navegación condicional según autenticación; link a Panel y botón Salir |
+| `resources/js/router/index.js` | Ruta raíz `/` → DashboardPage con `meta: { requiresAuth: true }` |
+| `resources/js/shared/components/AppLayout.vue` | Navegación condicional según autenticación; botón Salir cuando hay sesión |
 
 ## Componentes
 
 ### DashboardPage.vue
-- **Ruta**: `/dashboard` (protegida por `requiresAuth`)
+- **Ruta**: `/` (raíz, protegida por `requiresAuth`)
 - **Consume**: `authStore` (user, token, rol) y `api` (GET /dashboard/summary)
 - **Secciones**:
   1. **WelcomeSection** (inline): saludo con nombre del usuario y tenant
@@ -91,7 +91,7 @@ Cada módulo define un array `roles` que indica qué roles pueden verlo.
 ```
 Login exitoso
   → auth store: token, user, tenant_id, rol
-  → Navegación a /dashboard
+  → Navegación a /
   → DashboardPage onMounted
       → api.get('/dashboard/summary') (con Bearer + X-Tenant-ID)
       → Actualiza stats reactivas

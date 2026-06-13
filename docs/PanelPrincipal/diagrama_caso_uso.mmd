@@ -1,0 +1,28 @@
+graph TD
+    actor("Usuario") --> UC1{{Ver Panel Principal}}
+    actor --> UC2{{Autenticarse}}
+    actor --> UC3{{Ver Indicadores}}
+    actor --> UC4{{Acceder a Módulo}}
+
+    UC1 --> UC3
+    UC1 --> UC4
+    UC2 -->|extiende| UC1
+
+    UC3 --> UC3a["Ver Citas de Hoy"]
+    UC3 --> UC3b["Ver Camas Disponibles"]
+    UC3 --> UC3c["Ver Admisiones Activas"]
+
+    UC4 -->|según rol| UC4a["Admin: 8 módulos"]
+    UC4 -->|según rol| UC4b["Médico: 5 módulos"]
+    UC4 -->|según rol| UC4c["Enfermera: 4 módulos"]
+    UC4 -->|según rol| UC4d["TecnicoLab: 3 módulos"]
+    UC4 -->|según rol| UC4e["Recepcionista: 4 módulos"]
+
+    UC4a --> UC5[Gestión de Pacientes]
+    UC4a --> UC6[Gestión de Citas]
+    UC4a --> UC7[Admisiones]
+    UC4a --> UC8[Expediente Médico]
+    UC4a --> UC9[Laboratorio]
+    UC4a --> UC10[Camas]
+    UC4a --> UC11[Prescripciones]
+    UC4a --> UC12[Usuarios]

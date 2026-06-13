@@ -1,0 +1,71 @@
+classDiagram
+    class DashboardPage {
+        +userName: string
+        +tenantName: string
+        +userRole: string
+        +visibleModules: array
+        +stats: object
+        +onMounted()
+        +getModuleIcon(id)
+    }
+
+    class StatCard {
+        +icon: string
+        +label: string
+        +valor: number
+        +color: string
+    }
+
+    class ModuleCard {
+        +icon: string
+        +nombre: string
+        +descripcion: string
+        +ruta: string
+    }
+
+    class modules {
+        +id: string
+        +nombre: string
+        +descripcion: string
+        +ruta: string
+        +roles: string[]
+    }
+
+    class AuthStore {
+        +token: string
+        +tenantId: string
+        +user: object
+        +login(credentials)
+        +logout()
+        +setTenantId(id)
+        +persistSession(payload)
+    }
+
+    class Api {
+        +baseURL: string
+        +interceptors: object
+        +get(url)
+        +post(url, data)
+    }
+
+    class DashboardController {
+        +summary(Request)
+    }
+
+    class TenantMiddleware {
+        +handle(Request, Closure)
+    }
+
+    class JwtAuth {
+        +handle(Request, Closure)
+    }
+
+    DashboardPage --> StatCard : compone 3
+    DashboardPage --> ModuleCard : compone N
+    DashboardPage --> AuthStore : lee user/rol
+    DashboardPage --> Api : GET /dashboard/summary
+    DashboardPage --> modules : filtra por rol
+    AuthStore --> Api : POST /auth/login
+    ModuleCard --> modules : lee metadatos
+    DashboardController --> TenantMiddleware : pre-filtro
+    DashboardController --> JwtAuth : pre-filtro
