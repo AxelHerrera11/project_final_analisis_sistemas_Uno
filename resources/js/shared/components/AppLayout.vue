@@ -9,9 +9,6 @@
                     Inicio
                 </router-link>
                 <template v-if="isAuthenticated">
-                    <router-link class="layout__link" to="/dashboard">
-                        Panel
-                    </router-link>
                     <button class="layout__link layout__link--btn" @click="handleLogout">
                         Salir
                     </button>
